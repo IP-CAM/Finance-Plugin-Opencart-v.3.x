@@ -9,6 +9,6 @@
         "squizlabs/php_codesniffer": "3.*"
     },
     "config": {
-        "vendor-dir": "./library/"
+        "vendor-dir": "./"
     }
 }
