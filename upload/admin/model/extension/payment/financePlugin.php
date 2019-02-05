@@ -33,8 +33,17 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 	{
 		$environment = ($environment) ? $environment : $this->getEnvironment($apiKey);
 
+		$httpClient = new \GuzzleHttp\Client();
+
+		$guzzleClient = new \Divido\MerchantSDKGuzzle5\GuzzleAdapter($httpClient);
+
+		$httpClientWrapper =  new \Divido\MerchantSDK\HttpClient\HttpClientWrapper($guzzleClient,
+			\Divido\MerchantSDK\Environment::CONFIGURATION[$environment]['base_uri'],
+			$apiKey
+		);
+
 		$sdk = new Client(
-			$apiKey,
+			$httpClientWrapper,
 			$environment
 		);
 

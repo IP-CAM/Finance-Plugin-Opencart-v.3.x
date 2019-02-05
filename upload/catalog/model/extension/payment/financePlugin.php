@@ -34,11 +34,20 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 	{
 		$environment = ($environment) ? $environment : $this->getEnvironment($apiKey);
 
+		$httpClient = new \GuzzleHttp\Client();
+
+		$guzzleClient = new \Divido\MerchantSDKGuzzle5\GuzzleAdapter($httpClient);
+
+		$httpClientWrapper =  new \Divido\MerchantSDK\HttpClient\HttpClientWrapper($guzzleClient,
+			\Divido\MerchantSDK\Environment::CONFIGURATION[$environment]['base_uri'],
+			$apiKey
+		);
+
 		$sdk = new Client(
-			$apiKey,
+			$httpClientWrapper,
 			$environment
 		);
-		$this->sdk = $sdk;
+
 		return $sdk;
 	}
 
@@ -187,7 +196,7 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 			if (!$api_key) {
 				throw new Exception("No api-key defined");
 			}
-			$this->instantiateSDK($api_key);
+			$this->sdk = $this->instantiateSDK($api_key);
 		}
 
 		$requestOptions = new ApiRequestOptions();
@@ -361,7 +370,7 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 			if (!$api_key) {
 				throw new Exception("No api-key defined");
 			}
-			$this->instantiateSDK($api_key);
+			$this->sdk = $this->instantiateSDK($api_key);
 		}
 
 		$application = (new Application())
@@ -377,7 +386,11 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 			->withUrls($application['urls'])
 			->withMetadata($application['metadata']);
 
-		$response = $this->sdk->applications()->createApplication($application);
+		$response = $this->sdk->applications()->createApplication(
+			$application,
+			[],
+			['content-type' => 'application/json']
+		);
 
 		$applicationResponseBody = $response->getBody()->getContents();
 
