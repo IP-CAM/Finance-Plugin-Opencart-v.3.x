@@ -11,6 +11,11 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 
 	private $sdk;
 
+	public function __construct($registry){
+		require_once(DIR_SYSTEM.'/library/autoload.php');
+		parent::__construct($registry);
+	}
+
 	public function getEnvironment($apiKey)
 	{
 		if (empty($apiKey)) {
