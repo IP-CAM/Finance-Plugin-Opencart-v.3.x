@@ -12,5 +12,5 @@ $_['text_total_interest']      = 'Total interest APR';
 $_['text_monthly_installment'] = 'Monthly installment';
 $_['text_redirection']         = 'You will be redirected to the Finance portal to complete this finance application when you confirm your order';
 $_['financePlugin_checkout']   = 'Confirm and checkout with Finance';
-$_['deposit_to_low']           = 'Deposit to low';
+$_['deposit_to_low']           = 'Deposit too low';
 $_['no_country']               = 'Country not accepted';
