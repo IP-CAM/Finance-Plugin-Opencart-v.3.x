@@ -2,8 +2,7 @@
 
 ## Instructions
 
-To whitelabel the plugin to a particular client, replace the use of the word "divido" with 
-the handle of the company you are setting up, in the following locations:
+To whitelabel the plugin to a particular client, you can carry out the following changes:
 
 - Open **upload/catalog/view/theme/default/template/extension/module/financePlugin_calculator.twig** 
 file
