@@ -190,7 +190,7 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 		$applicationActivation = (new \Divido\MerchantSDK\Models\ApplicationActivation())
 			->withAmount(number_format($order['total'],2)*100)
 			->withReference("Order ".$order['application_id'])
-			->withComment('Order was delivered to the customer.')
+			->withComment('Order was dispatched by merchant.')
 			->withOrderItems($items)
 			->withDeliveryMethod('delivery');
 
@@ -200,6 +200,78 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 		$activationResponseBody = $response->getBody()->getContents();
 
 		return json_decode($activationResponseBody);
+	}
+
+	public function refundOrder($order_id) {
+		if(is_null($this->sdk)){
+			$api_key = $this->config->get('payment_financePlugin_api_key');
+
+			if (!$api_key) {
+				throw new Exception("No Finance Plugin api-key defined");
+			}
+
+			$this->sdk = $this->instantiateSDK($api_key);
+		}
+
+		$orderQuery = $this->db->query("
+			SELECT 
+				`oc_order`.*, 
+				`oc_c8UMbuNcJ4_lookup`.`salt`, 
+				`oc_c8UMbuNcJ4_lookup`.`proposal_id`, 
+				`oc_c8UMbuNcJ4_lookup`.`application_id`, 
+				`oc_c8UMbuNcJ4_lookup`.`deposit_amount` 
+			FROM 
+				`oc_order` 
+				INNER JOIN 
+					`oc_c8UMbuNcJ4_lookup` 
+						ON `oc_c8UMbuNcJ4_lookup`.`order_id` = `oc_order`.`order_id`
+			WHERE 
+				`oc_order`.`order_id` = '{$order_id}'
+			LIMIT 1");
+		
+		if($orderQuery->num_rows !== 1) {
+			throw new Exception("Could not find order");
+		} else $order = $orderQuery->rows[0];
+		
+		// First get the application you wish to create an activation for.
+		$application = (new \Divido\MerchantSDK\Models\Application())
+			->withId($order['application_id']);
+
+		$items = [];
+		$itemsQuery = $this->db->query("
+		SELECT
+			`name`,
+			`quantity`,
+			`price`
+		FROM
+			`oc_order_product`
+		WHERE
+			`order_id` = '{$order_id}'
+		");
+		
+		if($itemsQuery->num_rows > 0) {
+			foreach($itemsQuery->rows as $item) {
+				$items[] = [
+					'name' => $item['name'],
+					'quantity' => intval($item['quantity']),
+					'price' => $item['price']*100
+				];
+			}
+		}
+
+		// Create a new application refund model.
+		$applicationRefund = (new \Divido\MerchantSDK\Models\ApplicationRefund())
+			->withAmount(number_format($order['total'],2)*100)
+			->withReference("Order ".$order['application_id'])
+			->withComment('As per merchant request.')
+			->withOrderItems($items);
+
+		// Create a new refund for the application.
+		$response = $this->sdk->applicationRefunds()->createApplicationRefund($application, $applicationRefund);
+
+		$refundResponseBody = $response->getBody()->getContents();
+
+		return json_decode($refundResponseBody);
 	}
 
 	public function getLookupByOrderId($order_id) {
