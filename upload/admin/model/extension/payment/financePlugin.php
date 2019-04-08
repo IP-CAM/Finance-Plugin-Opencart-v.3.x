@@ -55,10 +55,10 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 		return $sdk;
 	}
 
-	public function getAllPlans() {
+	public function getAllPlans($api_key = null) {
 
 		if(is_null($this->sdk)){
-			$api_key = $this->config->get('payment_financePlugin_api_key');
+			$api_key = $api_key ?? $this->config->get('payment_financePlugin_api_key');
 
 			if (!$api_key) {
 				throw new Exception("No Finance Plugin api-key defined");
@@ -97,6 +97,29 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 			throw new Exception($e->getMessage());
 		}
 	}
+
+	public function getEnvironmentFromSDK($api_key=null) {
+		if(is_null($this->sdk)){
+				$api_key = $api_key ?? $this->config->get('payment_financePlugin_api_key');
+	
+				if (!$api_key) {
+					throw new Exception("No Finance Plugin api-key defined");
+				}
+	
+				$this->sdk = $this->instantiateSDK($api_key);
+			}
+	
+			$requestOptions = (new ApiRequestOptions());
+		  // Retrieve all finance plans for the merchant.
+		try{
+			$response = $this->sdk->platformEnvironments()->getPlatformEnvironment();
+			$response_array = json_decode($response->getBody()->getContents(), true);
+		}catch(MerchantApiBadResponseException $e){
+			$errorMessage = SDKErrorHandler::getMessage($e);
+			throw new Exception($e->getMessage());
+			}
+			return $response_array['data']['environment'];
+		}
 
 	public function getLookupByOrderId($order_id) {
 		return $this->db->query("SELECT * FROM `" . DB_PREFIX . "c8UMbuNcJ4_lookup` WHERE `order_id` = " . (int)$order_id);

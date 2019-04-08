@@ -1,23 +1,23 @@
 <script>
-    var dividoKey = "{{ api_key }}";
+    var {{environment}}Key = "{{ api_key }}";
 </script>
 <style>
-    #divido-widget{
+    #{{environment}}-widget{
         padding-bottom:5px;
     }
 </style>
 
-<script src="https://cdn.divido.com/calculator/v2.1/production/js/template.divido.js"></script>
+<script src="https://cdn.divido.com/calculator/v2.1/production/js/template.{{environment}}.js"></script>
 <form id="financePluginForm" method="post" >
     <div
-        data-divido-widget
-        data-divido-prefix="{{prefix}}"
-        data-divido-suffix="{{suffix}}"
-        data-divido-title-logo
-        data-divido-amount="{{amount}}"
-        data-divido-apply="true"
-        data-divido-apply-label="Apply Now"
-        data-divido-plans="{{basket_plans}}"
+        data-{{environment}}-widget
+        data-{{environment}}-prefix="{{prefix}}"
+        data-{{environment}}-suffix="{{suffix}}"
+        data-{{environment}}-title-logo
+        data-{{environment}}-amount="{{amount}}"
+        data-{{environment}}-apply="true"
+        data-{{environment}}-apply-label="Apply Now"
+        data-{{environment}}-plans="{{basket_plans}}"
         >
     </div>
 </form>
@@ -52,7 +52,7 @@
                         location = data.url;
                     } else {
                         message = data.message || '{{ generic_credit_req_error }}';
-                        $('#divido-checkout').prepend('<div class="alert alert-warning alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + message + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                        $('#{{environment}}-checkout').prepend('<div class="alert alert-warning alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + message + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                     }
                 }
             });

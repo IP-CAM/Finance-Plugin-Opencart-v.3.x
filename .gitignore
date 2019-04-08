@@ -1,9 +1,2 @@
-upload/system/library/bin
-upload/system/library/composer
-upload/system/library/divido
-upload/system/library/guzzlehttp
-upload/system/library/psr
-upload/system/library/ralouphie
-upload/system/library/react
-upload/system/library/autoload.php
-upload/system/library/composer.lock
+upload/system/library/
+FinancePlugin.ocmod.zip
