@@ -1,0 +1,37 @@
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th colspan="2">{{ text_order_info }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ text_proposal_id }}</td>
+            <td>{{ proposal_id }}</td>
+        </tr>
+        <tr>
+            <td>{{ text_application_id }}</td>
+            <td>{{ application_id }}</td>
+        </tr>
+        <tr>
+            <td>{{ text_deposit_amount }}</td>
+            <td>{{ deposit_amount }}</td>
+        </tr>
+        {% if notification %}
+        <tr>
+            <td></td>
+            <td><font color='green'>{{ notification }}</font></td>
+        </tr>
+        {% endif %}
+        {% if(order_status == 'READY') %}
+        <tr>
+            <td>Activate</td>
+            <td>
+              <form method='post'>
+                <input type="submit" name="activate" value="activate"></input>
+              </form>
+            </td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>

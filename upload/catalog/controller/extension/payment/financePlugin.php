@@ -140,7 +140,6 @@ class ControllerExtensionPaymentFinancePlugin extends Controller {
 
 		$this->load->model('extension/payment/financePlugin');
 
-		ini_set('html_errors', 0);
 		if (!$this->session->data['payment_method']['code'] == 'financePlugin' && isset($_POST['divido_deposit']) && isset($_POST['divido_plan'])) {
 			return false;
 		}
@@ -183,7 +182,7 @@ class ControllerExtensionPaymentFinancePlugin extends Controller {
 			);
 		} else {
 			$payload = $response->data;
-			$this->model_extension_payment_financePlugin->saveLookup($order_id, $salt, $payload->id, null, $payload->amounts->deposit_amount);
+			$this->model_extension_payment_financePlugin->saveLookup($order_id, $salt, $payload->id, null, ($payload->amounts->deposit_amount/100));
 
 			$data = array(
 				'status' => 'ok',
