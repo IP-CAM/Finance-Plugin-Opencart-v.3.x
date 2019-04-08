@@ -182,7 +182,7 @@ class ControllerExtensionPaymentFinancePlugin extends Controller {
 			);
 		} else {
 			$payload = $response->data;
-			$this->model_extension_payment_financePlugin->saveLookup($order_id, $salt, $payload->id, null, ($payload->amounts->deposit_amount/100));
+			$this->model_extension_payment_financePlugin->saveLookup($order_id, $salt, $payload->id, null, number_format($payload->amounts->deposit_amount/100,2));
 
 			$data = array(
 				'status' => 'ok',
