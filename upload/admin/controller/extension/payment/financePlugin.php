@@ -190,8 +190,24 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 		$this->load->language('extension/payment/financePlugin');
 
 		$order_id = $this->request->get['order_id'];
-
 		$lookup = $this->model_extension_payment_financePlugin->getLookupByOrderId($order_id);
+
+		$lastStatus = $this->model_extension_payment_financePlugin->getLastStatus($order_id);
+		$data['order_status'] = (!($lastStatus)) ? 'READY' : $lastStatus;
+
+		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
+			if(isset($this->request->post['activate'])) {
+				$response = $this->model_extension_payment_financePlugin->activateOrder($order_id);
+				if(isset($response->error)) {
+					$data['notification'] = $response->message;
+				} else {
+					$data['notification'] = 'The order has been activated';
+					$data['order_status'] = 'AWAITING-ACTIVATION';
+				}
+			}
+
+		}
+
 		$proposal_id = null;
 		$application_id = null;
 		$deposit_amount = null;

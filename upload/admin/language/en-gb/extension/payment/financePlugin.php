@@ -2,6 +2,7 @@
 $_['text_proposal_id']                 = 'Proposal ID';
 $_['text_application_id']              = 'Application ID';
 $_['text_deposit_amount']              = 'Deposit amount';
+$_['text_order_info']                  = 'Finance Plugin info';
 
 $_['heading_title']                    = 'Finance Plugin';
 $_['text_edit']                        = 'Edit the Finance Plugin';
