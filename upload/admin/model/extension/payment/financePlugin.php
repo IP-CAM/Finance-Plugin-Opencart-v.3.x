@@ -56,7 +56,7 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 	}
 
 	public function getLastStatus($order_id) {
-		$last_status = $this->db->query("select `comment` from `oc_order_history` WHERE `order_id`={$order_id} AND `comment` LIKE 'Status:%' ORDER BY `date_added` DESC LIMIT 1");
+		$last_status = $this->db->query("select `comment` from `".DB_PREFIX."order_history` WHERE `order_id`={$order_id} AND `comment` LIKE 'Status:%' ORDER BY `date_added` DESC LIMIT 1");
 		if($last_status->num_rows == 1) {
 			$status = substr($last_status->rows[0]['comment'], 8);
 			return $status;
@@ -142,18 +142,18 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 
 		$orderQuery = $this->db->query("
 			SELECT 
-				`oc_order`.*, 
-				`oc_c8UMbuNcJ4_lookup`.`salt`, 
-				`oc_c8UMbuNcJ4_lookup`.`proposal_id`, 
-				`oc_c8UMbuNcJ4_lookup`.`application_id`, 
-				`oc_c8UMbuNcJ4_lookup`.`deposit_amount` 
+				`".DB_PREFIX."order`.*, 
+				`".DB_PREFIX."c8UMbuNcJ4_lookup`.`salt`, 
+				`".DB_PREFIX."c8UMbuNcJ4_lookup`.`proposal_id`, 
+				`".DB_PREFIX."c8UMbuNcJ4_lookup`.`application_id`, 
+				`".DB_PREFIX."c8UMbuNcJ4_lookup`.`deposit_amount` 
 			FROM 
-				`oc_order` 
+				`".DB_PREFIX."order` 
 				INNER JOIN 
-					`oc_c8UMbuNcJ4_lookup` 
-						ON `oc_c8UMbuNcJ4_lookup`.`order_id` = `oc_order`.`order_id`
+					`".DB_PREFIX."c8UMbuNcJ4_lookup` 
+						ON `".DB_PREFIX."c8UMbuNcJ4_lookup`.`order_id` = `".DB_PREFIX."order`.`order_id`
 			WHERE 
-				`oc_order`.`order_id` = '{$order_id}'
+				`".DB_PREFIX."order`.`order_id` = '{$order_id}'
 			LIMIT 1");
 		
 		if($orderQuery->num_rows !== 1) {
@@ -171,7 +171,7 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 			`quantity`,
 			`price`
 		FROM
-			`oc_order_product`
+			`".DB_PREFIX."order_product`
 		WHERE
 			`order_id` = '{$order_id}'
 		");
@@ -215,18 +215,18 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 
 		$orderQuery = $this->db->query("
 			SELECT 
-				`oc_order`.*, 
-				`oc_c8UMbuNcJ4_lookup`.`salt`, 
-				`oc_c8UMbuNcJ4_lookup`.`proposal_id`, 
-				`oc_c8UMbuNcJ4_lookup`.`application_id`, 
-				`oc_c8UMbuNcJ4_lookup`.`deposit_amount` 
+				`".DB_PREFIX."order`.*, 
+				`".DB_PREFIX."c8UMbuNcJ4_lookup`.`salt`, 
+				`".DB_PREFIX."c8UMbuNcJ4_lookup`.`proposal_id`, 
+				`".DB_PREFIX."c8UMbuNcJ4_lookup`.`application_id`, 
+				`".DB_PREFIX."c8UMbuNcJ4_lookup`.`deposit_amount` 
 			FROM 
-				`oc_order` 
+				`".DB_PREFIX."order` 
 				INNER JOIN 
-					`oc_c8UMbuNcJ4_lookup` 
-						ON `oc_c8UMbuNcJ4_lookup`.`order_id` = `oc_order`.`order_id`
+					`".DB_PREFIX."c8UMbuNcJ4_lookup` 
+						ON `".DB_PREFIX."c8UMbuNcJ4_lookup`.`order_id` = `".DB_PREFIX."order`.`order_id`
 			WHERE 
-				`oc_order`.`order_id` = '{$order_id}'
+				`".DB_PREFIX."order`.`order_id` = '{$order_id}'
 			LIMIT 1");
 		
 		if($orderQuery->num_rows !== 1) {
@@ -244,7 +244,7 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 			`quantity`,
 			`price`
 		FROM
-			`oc_order_product`
+			`".DB_PREFIX."order_product`
 		WHERE
 			`order_id` = '{$order_id}'
 		");
@@ -272,6 +272,78 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 		$refundResponseBody = $response->getBody()->getContents();
 
 		return json_decode($refundResponseBody);
+	}
+
+	public function cancelOrder($order_id) {
+		if(is_null($this->sdk)){
+			$api_key = $this->config->get('payment_financePlugin_api_key');
+
+			if (!$api_key) {
+				throw new Exception("No Finance Plugin api-key defined");
+			}
+
+			$this->sdk = $this->instantiateSDK($api_key);
+		}
+
+		$orderQuery = $this->db->query("
+			SELECT 
+				`".DB_PREFIX."order`.*, 
+				`".DB_PREFIX."c8UMbuNcJ4_lookup`.`salt`, 
+				`".DB_PREFIX."c8UMbuNcJ4_lookup`.`proposal_id`, 
+				`".DB_PREFIX."c8UMbuNcJ4_lookup`.`application_id`, 
+				`".DB_PREFIX."c8UMbuNcJ4_lookup`.`deposit_amount` 
+			FROM 
+				`".DB_PREFIX."order` 
+				INNER JOIN 
+					`".DB_PREFIX."c8UMbuNcJ4_lookup` 
+						ON `".DB_PREFIX."c8UMbuNcJ4_lookup`.`order_id` = `".DB_PREFIX."order`.`order_id`
+			WHERE 
+				`".DB_PREFIX."order`.`order_id` = '{$order_id}'
+			LIMIT 1");
+		
+		if($orderQuery->num_rows !== 1) {
+			throw new Exception("Could not find order");
+		} else $order = $orderQuery->rows[0];
+		
+		// First get the application you wish to create an activation for.
+		$application = (new \Divido\MerchantSDK\Models\Application())
+			->withId($order['application_id']);
+
+		$items = [];
+		$itemsQuery = $this->db->query("
+		SELECT
+			`name`,
+			`quantity`,
+			`price`
+		FROM
+			`" . DB_PREFIX . "order_product`
+		WHERE
+			`order_id` = '{$order_id}'
+		");
+		
+		if($itemsQuery->num_rows > 0) {
+			foreach($itemsQuery->rows as $item) {
+				$items[] = [
+					'name' => $item['name'],
+					'quantity' => intval($item['quantity']),
+					'price' => $item['price']*100
+				];
+			}
+		}
+
+		// Create a new application refund model.
+		$applicationCancellation = (new \Divido\MerchantSDK\Models\ApplicationCancellation())
+			->withAmount(number_format($order['total'],2)*100)
+			->withReference("Order ".$order['application_id'])
+			->withComment('As per merchant request.')
+			->withOrderItems($items);
+
+		// Create a new cancellation for the application.
+		$response = $this->sdk->applicationCancellations()->createApplicationCancellation($application, $applicationCancellation);
+
+		$cancellationResponseBody = $response->getBody()->getContents();
+
+		return json_decode($cancellationResponseBody);
 	}
 
 	public function getLookupByOrderId($order_id) {

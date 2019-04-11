@@ -212,6 +212,14 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 					$data['notification'] = 'The order has been refunded';
 					$data['order_status'] = 'REFUNDED';
 				}
+			}elseif(isset($this->request->post['cancel'])) {
+				$response = $this->model_extension_payment_financePlugin->cancelOrder($order_id);
+				if(isset($response->error)) {
+					$data['notification'] = $response->message;
+				} else {
+					$data['notification'] = 'The order has been cancelled';
+					$data['order_status'] = 'CANCELLED';
+				}
 			}
 
 		}
