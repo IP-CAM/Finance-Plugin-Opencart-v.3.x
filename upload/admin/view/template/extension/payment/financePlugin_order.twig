@@ -17,6 +17,39 @@
             <td>{{ text_deposit_amount }}</td>
             <td>{{ deposit_amount }}</td>
         </tr>
-
+        {% if notification %}
+        <tr>
+            <td></td>
+            <td><font color='green'>{{ notification }}</font></td>
+        </tr>
+        {% endif %}
+        {% if(order_status == 'READY') %}
+        <tr>
+            <td>Activate</td>
+            <td>
+              <form method='post'>
+                <input type="submit" name="activate" value="activate"></input>
+              </form>
+            </td>
+        </tr>
+        <tr>
+            <td>Cancel</td>
+            <td>
+              <form method='post'>
+                <input type="submit" name="cancel" value="cancel"></input>
+              </form>
+            </td>
+        </tr>
+        {% endif %}
+        {% if(order_status == 'AWAITING-ACTIVATION') %}
+        <tr>
+            <td>Refund</td>
+            <td>
+              <form method='post'>
+                <input type="submit" name="refund" value="refund"></input>
+              </form>
+            </td>
+        </tr>
+        {% endif %}
     </tbody>
 </table>
