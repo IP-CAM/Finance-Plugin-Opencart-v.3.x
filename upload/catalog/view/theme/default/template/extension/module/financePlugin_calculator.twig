@@ -1,16 +1,16 @@
 <script>
-    var dividoKey = "{{ api_key }}";
+    var {{environment}}Key = "{{ api_key }}";
   </script>
 
-  <script src="https://cdn.divido.com/calculator/v2.1/production/js/template.divido.js"></script>
+  <script src="https://cdn.divido.com/calculator/v2.1/production/js/template.{{environment}}.js"></script>
   <div
-    id="divido-widget"
-    data-divido-widget
-    data-divido-plans="{{ plan_list }}"
-    data-divido-prefix=""
-    data-divido-suffix=""
-    data-divido-amount="{{ product_price }}"
-    data-divido-apply="true"
-    data-divido-apply-label="Apply Now"
+    id="{{environment}}-widget"
+    data-{{environment}}-widget
+    data-{{environment}}-plans="{{ plan_list }}"
+    data-{{environment}}-prefix=""
+    data-{{environment}}-suffix=""
+    data-{{environment}}-amount="{{ product_price }}"
+    data-{{environment}}-apply="true"
+    data-{{environment}}-apply-label="Apply Now"
   >
   </div>

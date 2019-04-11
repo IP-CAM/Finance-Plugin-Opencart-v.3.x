@@ -186,6 +186,7 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 	}
 
 	public function getAllPlans() {
+		/*
 		if ($plans = $this->cache->get(self::CACHE_KEY_PLANS)) {
 			// OpenCart 2.1 decodes json objects to associative arrays so we
 			// need to make sure we're getting a list of simple objects back.
@@ -195,7 +196,7 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 
 			return $plans;
 		}
-
+		*/
 		if(is_null($this->sdk)){
 			$api_key = $this->config->get('payment_financePlugin_api_key');
 			if (!$api_key) {

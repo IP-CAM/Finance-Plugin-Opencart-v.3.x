@@ -77,6 +77,7 @@ class ControllerExtensionPaymentFinancePlugin extends Controller {
 			'amount'					=> $total,
 			'basket_plans'              => $plans_list,
 			'generic_credit_req_error'	=> 'Credit request could not be initiated',
+			'environment'				=> $this->config->get('payment_financePlugin_environment')
 		);
 
 		return $this->load->view('extension/payment/financePlugin', $data);
@@ -227,7 +228,8 @@ class ControllerExtensionPaymentFinancePlugin extends Controller {
 
 		$data = array(
 			'planList'     => $plan_list,
-			'productPrice' => $product_price
+			'productPrice' => $product_price,
+			'environment'  => $this->config->get('payment_financePlugin_environment')
 		);
 
 		$filename = ($type == 'full') ? 'extension/payment/financePlugin_calculator' : 'extension/payment/financePlugin_widget';

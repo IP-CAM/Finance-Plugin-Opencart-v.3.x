@@ -13,7 +13,16 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 		$this->load->model('extension/payment/financePlugin');
 
 		if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validate()) {
-			$this->model_setting_setting->editSetting('payment_financePlugin', $this->request->post);
+			$new_settings = $this->request->post;
+			
+			try {
+				$new_settings['payment_financePlugin_environment'] = $this->model_extension_payment_financePlugin->getEnvironmentFromSDK($new_settings['payment_financePlugin_api_key']);
+			} catch (Exception $e) {
+				$this->log->write($e->getMessage());
+				$new_settings['payment_financePlugin_environment'] = '';
+			}
+			
+			$this->model_setting_setting->editSetting('payment_financePlugin', $new_settings);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -164,6 +173,8 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
+
+		$data['environment'] = $this->config->get('payment_financePlugin_environment');
 
 		$this->response->setOutput($this->load->view('extension/payment/financePlugin', $data));
 	}
