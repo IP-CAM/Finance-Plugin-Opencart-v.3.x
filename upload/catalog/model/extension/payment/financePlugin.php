@@ -423,6 +423,27 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 		return $applicationResponseBody;
 	}
 
+	public function hmacSign() {
+	 	if (isset($_SERVER['HTTP_RAW_POST_DATA']) 
+            && $_SERVER['HTTP_RAW_POST_DATA']
+        ) {
+            $data = file_get_contents($_SERVER['HTTP_RAW_POST_DATA']);
+        } else {
+            $data = file_get_contents('php://input');
+        }
+        $sharedSecret = $this->config->get('payment_financePlugin_shared_secret');
+        if (!empty($sharedSecret)) {
+            $callback_sign = $_SERVER['HTTP_X_DIVIDO_HMAC_SHA256'];
+            
+            $sign = $this->createSignature($data, $sharedSecret);
+            
+            if ($callback_sign !== $sign ) {
+                return false;
+            }
+        }
+		return true;
+	}
+
 	public function createSignature($secret, $payload) {
 		$hmac = hash_hmac('sha256', $payload, $secret, true);
 		$signature = base64_encode($hmac);
