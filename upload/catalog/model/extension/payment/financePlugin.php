@@ -435,7 +435,7 @@ class ModelExtensionPaymentFinancePlugin extends Model {
         if (!empty($sharedSecret)) {
             $callback_sign = $_SERVER['HTTP_X_DIVIDO_HMAC_SHA256'];
             
-            $sign = $this->createSignature($data, $sharedSecret);
+            $sign = $this->createSignature($sharedSecret, $data);
             
             if ($callback_sign !== $sign ) {
                 return false;
