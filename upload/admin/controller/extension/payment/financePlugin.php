@@ -80,6 +80,12 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 			$data['payment_financePlugin_api_key'] = $this->config->get('payment_financePlugin_api_key');
 		}
 
+		if (isset($this->request->post['payment_financePlugin_shared_secret'])) {
+			$data['payment_financePlugin_shared_secret'] = $this->request->post['payment_financePlugin_shared_secret'];
+		} else {
+			$data['payment_financePlugin_shared_secret'] = $this->config->get('payment_financePlugin_shared_secret');
+		}
+
 		if (isset($this->request->post['payment_financePlugin_order_status_id'])) {
 			$data['payment_financePlugin_order_status_id'] = $this->request->post['payment_financePlugin_order_status_id'];
 		} elseif ($this->config->get('payment_financePlugin_order_status_id')) {
@@ -205,7 +211,7 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 					$data['order_status'] = 'AWAITING-ACTIVATION';
 				}
 			}elseif(isset($this->request->post['refund'])) {
-				$response = $this->model_extension_payment_financePlugin->activateOrder($order_id);
+				$response = $this->model_extension_payment_financePlugin->refundOrder($order_id);
 				if(isset($response->error)) {
 					$data['notification'] = $response->message;
 				} else {

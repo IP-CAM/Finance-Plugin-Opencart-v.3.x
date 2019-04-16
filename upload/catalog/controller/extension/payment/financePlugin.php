@@ -107,6 +107,11 @@ class ControllerExtensionPaymentFinancePlugin extends Controller {
 			return;
 		}
 
+		if(!$this->model_extension_payment_financePlugin->hmacSign()) {
+			$this->response->setOutput('invalid');
+			return;
+		}
+
 		$order_id = $data->metadata->order_id;
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 		$status_id = $order_info['order_status_id'];

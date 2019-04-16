@@ -20,8 +20,10 @@ class ControllerExtensionModuleFinancePluginCalculator extends Controller {
 			$base_price = !empty($product_info['special']) ? $product_info['special'] : $product_info['price'];
 			$price = $this->tax->calculate($base_price, $product_info['tax_class_id'], $this->config->get('config_tax'));
 		}
+		$price_text = $this->currency->format($price, $this->session->data['currency']);
+		$localised_price = filter_var($price_text, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
-		if ($product_selection == 'threshold' && $product_threshold > $price) {
+		if ($product_selection == 'threshold' && $product_threshold > $localised_price) {
 			return false;
 		}
 
@@ -44,7 +46,7 @@ class ControllerExtensionModuleFinancePluginCalculator extends Controller {
 
 		$data = array(
 			'api_key'					=> $js_key,
-			'product_price'				=> $price,
+			'product_price'				=> $localised_price,
 			'plan_list'					=> $plans_list,
 			'generic_credit_req_error'	=> 'Credit request could not be initiated',
 			'environment'	=> $this->config->get('payment_financePlugin_environment')

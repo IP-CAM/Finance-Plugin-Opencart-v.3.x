@@ -397,15 +397,57 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 			->withUrls($application['urls'])
 			->withMetadata($application['metadata']);
 
+		$headers = ['content-type' => 'application/json'];
+		$shared_secret = $this->config->get('payment_financePlugin_shared_secret');
+		if($shared_secret){
+			/**
+			 * Shared Secret not working currently - possibly
+			 */
+			$payload = $application->getJsonPayload();
+			$secret = $this->config->get('payment_financePlugin_shared_secret');
+			$encryptedSecret = $this->createSignature($secret, $payload);
+			//$headers['X-Divido-Hmac-Sha256'] = $encryptedSecret;
+			/**
+			 * Shared Secret Not working currently
+			 */
+		}
+
 		$response = $this->sdk->applications()->createApplication(
 			$application,
 			[],
-			['content-type' => 'application/json']
+			$headers
 		);
 
 		$applicationResponseBody = $response->getBody()->getContents();
 
 		return $applicationResponseBody;
+	}
+
+	public function hmacSign() {
+	 	if (isset($_SERVER['HTTP_RAW_POST_DATA']) 
+            && $_SERVER['HTTP_RAW_POST_DATA']
+        ) {
+            $data = file_get_contents($_SERVER['HTTP_RAW_POST_DATA']);
+        } else {
+            $data = file_get_contents('php://input');
+        }
+        $sharedSecret = $this->config->get('payment_financePlugin_shared_secret');
+        if (!empty($sharedSecret)) {
+            $callback_sign = $_SERVER['HTTP_X_DIVIDO_HMAC_SHA256'];
+            
+            $sign = $this->createSignature($sharedSecret, $data);
+            
+            if ($callback_sign !== $sign ) {
+                return false;
+            }
+        }
+		return true;
+	}
+
+	public function createSignature($secret, $payload) {
+		$hmac = hash_hmac('sha256', $payload, $secret, true);
+		$signature = base64_encode($hmac);
+		return $signature;
 	}
 
 	public function getCustomer(){
@@ -451,11 +493,11 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 		$products = array();
 		foreach ($this->cart->getProducts() as $product) {
 			$price_text = $this->currency->format(
-											$this->tax->calculate(
-												$product['price'], $product['tax_class_id'], $this->config->get('config_tax')
-											),
-											$this->session->data['currency']
-										);
+						      $this->tax->calculate(
+							      $product['price'], $product['tax_class_id'], $this->config->get('config_tax')
+						      ),
+						      $this->session->data['currency']
+					      );
 		  $price_float = filter_var($price_text, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION)*100;
 
 			$products[] = array(
