@@ -299,8 +299,13 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 		}
 
 		array_multisort($sort_order, SORT_ASC, $totals);
+		$total_text = $this->currency->format($total, $this->session->data['currency']);
+		$localised_total = filter_var($total_text, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
-		return array($total, $totals);
+		return array(
+			$localised_total,
+			$totals
+		);
 	}
 
 	public function getProductPlans($product_id) {
@@ -445,26 +450,33 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 	public function getProducts(){
 		$products = array();
 		foreach ($this->cart->getProducts() as $product) {
+			$price_text = $this->currency->format(
+											$this->tax->calculate(
+												$product['price'], $product['tax_class_id'], $this->config->get('config_tax')
+											),
+											$this->session->data['currency']
+										);
+		  $price_float = filter_var($price_text, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION)*100;
+
 			$products[] = array(
 				'type' => 'product',
 				'name' => $product['name'],
 				'quantity' => intval($product['quantity']),
-				'price' => ($product['price']*100),
+				'price' => $price_float
 			);
 		}
 
-		list($total, $totals) = $this->getOrderTotals();
+		if(isset($this->session->data['shipping_method']['text'])) {
+			$shipping_text = $this->session->data['shipping_method']['text'];
+			$shipping = filter_var($shipping_text, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
-		$sub_total = $total;
-		$cart_total = $this->cart->getSubTotal();
-		$shiphandle = $sub_total - $cart_total;
-
-		$products[] = array(
-			'type' => 'product',
-			'name' => 'Shipping & Handling',
-			'quantity' => 1,
-			'price' => ($shiphandle*100),
-		);
+			$products[] = array(
+				'type' => 'product',
+				'name' => 'Shipping & Handling',
+				'quantity' => 1,
+				'price' => ($shipping*100),
+			);
+		}
 		return $products;
 	}
 
