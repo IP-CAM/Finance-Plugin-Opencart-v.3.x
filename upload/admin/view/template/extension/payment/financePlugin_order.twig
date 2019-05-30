@@ -25,28 +25,28 @@
         {% endif %}
         {% if(order_status == 'READY') %}
         <tr>
-            <td>Activate</td>
+            <td>{{ text_activate }}</td>
             <td>
               <form method='post'>
-                <input type="submit" name="activate" value="activate"></input>
+                <input type="submit" name="activate" value="{{ text_activate }}"></input>
               </form>
             </td>
         </tr>
         <tr>
-            <td>Cancel</td>
+            <td>{{ text_cancel }}</td>
             <td>
               <form method='post'>
-                <input type="submit" name="cancel" value="cancel"></input>
+                <input type="submit" name="cancel" value="{{ text_cancel }}"></input>
               </form>
             </td>
         </tr>
         {% endif %}
         {% if(order_status == 'AWAITING-ACTIVATION') %}
         <tr>
-            <td>Refund</td>
+            <td>{{ text_refund }}</td>
             <td>
               <form method='post'>
-                <input type="submit" name="refund" value="refund"></input>
+                <input type="submit" name="refund" value="{{ text_refund }}"></input>
               </form>
             </td>
         </tr>
