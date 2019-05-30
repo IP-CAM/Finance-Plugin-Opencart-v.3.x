@@ -2,7 +2,16 @@
 $_['text_proposal_id']                 = 'Proposal ID';
 $_['text_application_id']              = 'Application ID';
 $_['text_deposit_amount']              = 'Deposit amount';
-$_['text_order_info']                  = 'Finance Plugin info';
+$_['text_activate']                    = 'Activate';
+$_['text_activate_notification']       = 'The order has been activated';
+$_['text_activate_status']             = 'ACTIVATED';
+$_['text_cancel']                      = 'Cancel';
+$_['text_cancel_notification']         = 'The order has been cancelled';
+$_['text_cancel_status']               = 'CANCELLED';
+$_['text_refund']                      = 'Refund';
+$_['text_refund_notification']         = 'The order has been refunded';
+$_['text_refund_status']               = 'REFUNDED';
+
 
 $_['heading_title']                    = 'Finance Plugin';
 $_['text_edit']                        = 'Edit the Finance Plugin';
@@ -31,7 +40,7 @@ $_['entry_calc_layout_custom']         = 'Disabled / Custom';
 $_['entry_exclusive']                  = 'Require whole cart to be available on finance';
 $_['entry_cart_threshold']             = 'Cart amount minimum';
 $_['help_api_key']                     = 'The unique key linked to your account';
-$_['help_shared_secret']                      = 'A set of characters used for end to end validation';
+$_['help_shared_secret']               = 'A set of characters used for end to end validation';
 $_['help_cart_threshold']              = 'Minimum required amount in cart, for the Finance Plugin to be available';
 $_['entry_category']                   = 'Category';
 $_['help_category']                    = 'Limit categories where Finance is available';
