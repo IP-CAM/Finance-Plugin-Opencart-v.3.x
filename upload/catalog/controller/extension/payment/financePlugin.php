@@ -162,9 +162,9 @@ class ControllerExtensionPaymentFinancePlugin extends Controller {
 		$request['currency'] = strtoupper($this->session->data['currency']);
 		$request["products"] = $this->model_extension_payment_financePlugin->getProducts();
 		$request["urls"] = [
-			'merchant_response_url' => $this->url->link('extension/payment/financePlugin/update', '', true),
-			'merchant_redirect_url' => $this->url->link('checkout/success', '', true),
-			'merchant_checkout_url' => $this->url->link('checkout/checkout', '', true)
+			'merchant_response_url' => 'http://2071a277.ngrok.io?route=extension/payment/financePlugin/update',// $this->url->link('extension/payment/financePlugin/update', '', true),
+			'merchant_redirect_url' => 'http://2071a277.ngrok.io?route=checkout/success',//$this->url->link('checkout/success', '', true),
+			'merchant_checkout_url' => 'http://2071a277.ngrok.io?route=checkout/checkout',//$this->url->link('checkout/checkout', '', true)
 		];
 		$request['customers'] = [
 			$this->model_extension_payment_financePlugin->getCustomer()

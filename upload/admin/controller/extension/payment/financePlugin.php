@@ -207,24 +207,24 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 				if(isset($response->error)) {
 					$data['notification'] = $response->message;
 				} else {
-					$data['notification'] = $_['text_activate_notification'];
-					$data['order_status'] = $_['text_activate_status'];
+					$data['notification'] = $this->language->get('text_activate_notification');
+					$data['order_status'] = $this->language->get('text_activate_status');
 				}
-			}elseif(isset($this->request->post[$_['text_refund']])) {
+			}elseif(isset($this->request->post['refund'])) {
 				$response = $this->model_extension_payment_financePlugin->refundOrder($order_id);
 				if(isset($response->error)) {
 					$data['notification'] = $response->message;
 				} else {
-					$data['notification'] = $_['text_refund_notification']; 
-					$data['order_status'] = $_['text_refund_status'];
+					$data['notification'] = $this->language->get('text_refund_notification'); 
+					$data['order_status'] = $this->language->get('text_refund_status');
 				}
 			}elseif(isset($this->request->post['cancel'])) {
 				$response = $this->model_extension_payment_financePlugin->cancelOrder($order_id);
 				if(isset($response->error)) {
 					$data['notification'] = $response->message;
 				} else {
-					$data['notification'] = $_['text_cancel_notification'];
-					$data['order_status'] = $_['text_cancel_status'];
+					$data['notification'] = $this->language->get('text_cancel_notification');
+					$data['order_status'] = $this->language->get('text_cancel_status');
 				}
 			}
 
