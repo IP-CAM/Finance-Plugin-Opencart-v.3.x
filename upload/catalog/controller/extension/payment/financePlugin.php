@@ -15,7 +15,8 @@ class ControllerExtensionPaymentFinancePlugin extends Controller {
 		STATUS_DEFERRED = 'DEFERRED',
 		STATUS_REFERRED = 'REFERRED',
 		STATUS_FULFILLED = 'FULFILLED',
-		STATUS_SIGNED = 'SIGNED';
+		STATUS_SIGNED = 'SIGNED',
+		NGROK_URL = "http://2071a277.ngrok.io";
 
 	private $status_id = array(
 		self::STATUS_ACCEPTED => 1,
@@ -161,11 +162,20 @@ class ControllerExtensionPaymentFinancePlugin extends Controller {
 		$request['language'] = $this->language->get('code');
 		$request['currency'] = strtoupper($this->session->data['currency']);
 		$request["products"] = $this->model_extension_payment_financePlugin->getProducts();
-		$request["urls"] = [
-			'merchant_response_url' => 'http://2071a277.ngrok.io?route=extension/payment/financePlugin/update',// $this->url->link('extension/payment/financePlugin/update', '', true),
-			'merchant_redirect_url' => 'http://2071a277.ngrok.io?route=checkout/success',//$this->url->link('checkout/success', '', true),
-			'merchant_checkout_url' => 'http://2071a277.ngrok.io?route=checkout/checkout',//$this->url->link('checkout/checkout', '', true)
-		];
+		/*
+		if('172.22.0.1' == $_SERVER['REMOTE_ADDR']) { // if localhost
+			$request["urls"] = [
+				'merchant_response_url' => self::NGROK_URL."?route=extension/payment/financePlugin/update",
+				'merchant_redirect_url' => self::NGROK_URL."?route=checkout/success",
+				'merchant_checkout_url' => self::NGROK_URL."?route=checkout/checkout"
+			];
+		} else { */
+			$request["urls"] = [
+				'merchant_response_url' => $this->url->link('extension/payment/financePlugin/update', '', true),
+				'merchant_redirect_url' => $this->url->link('checkout/success', '', true),
+				'merchant_checkout_url' => $this->url->link('checkout/checkout', '', true)
+			];
+		// }
 		$request['customers'] = [
 			$this->model_extension_payment_financePlugin->getCustomer()
 		];
