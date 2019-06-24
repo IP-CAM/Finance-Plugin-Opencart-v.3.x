@@ -1,2 +1,8 @@
 upload/system/library/
 FinancePlugin.ocmod.zip
+.DS_Store
+.idea
+.idea/
+.vscode/
+vendor/
+
