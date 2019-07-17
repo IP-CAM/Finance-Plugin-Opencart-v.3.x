@@ -1,16 +1,17 @@
-<script>
-    var {{environment}}Key = "{{ api_key }}";
-  </script>
 
-  <script src="https://cdn.divido.com/calculator/v2.1/production/js/template.{{environment}}.js"></script>
   <div
-    id="{{environment}}-widget"
-    data-{{environment}}-widget
-    data-{{environment}}-plans="{{ plan_list }}"
-    data-{{environment}}-prefix=""
-    data-{{environment}}-suffix=""
-    data-{{environment}}-amount="{{ product_price }}"
-    data-{{environment}}-apply="true"
-    data-{{environment}}-apply-label="Apply Now"
+    data-calculator-widget
+    data-plans="{{ plan_list }}"
+    data-amount="{{ product_price }}"
+    data-mode="calculator"
+    {{ widget_footnote }}
+    {{ widget_btn_txt }}
   >
   </div>
+  <script>
+    __widgetConfig = {
+      apiKey: '{{api_key}}'
+    }
+  </script>
+
+  <script src="https://cdn.divido.com/widget/dist/{{environment}}.calculator.js"></script>

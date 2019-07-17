@@ -28,6 +28,15 @@ class ControllerExtensionModuleFinancePluginCalculator extends Controller {
 		}
 
 		$api_key = $this->config->get('payment_financePlugin_api_key');
+		
+		$widget_footnote = (empty($this->config->get('payment_financePlugin_footnote')))
+			? ''
+			: 'data-footnote="'.$this->config->get('payment_financePlugin_footnote').'"';
+		
+		$widget_btn_txt = (empty($this->config->get('payment_financePlugin_btn_txt')))
+			? ''
+			: 'data-button-text="'.$this->config->get('payment_financePlugin_btn_txt').'"';
+
 		$key_parts = explode('.', $api_key);
 		$js_key = strtolower(array_shift($key_parts));
 
@@ -45,11 +54,13 @@ class ControllerExtensionModuleFinancePluginCalculator extends Controller {
 		$plans_list = implode(',', $plans_ids);
 
 		$data = array(
-			'api_key'					=> $js_key,
-			'product_price'				=> $localised_price,
-			'plan_list'					=> $plans_list,
-			'generic_credit_req_error'	=> 'Credit request could not be initiated',
-			'environment'	=> $this->config->get('payment_financePlugin_environment')
+			'api_key'				   => $js_key,
+			'product_price'		 	   => $localised_price*100,
+			'plan_list'				   => $plans_list,
+			'widget_footnote'          => $widget_footnote,
+			'widget_btn_txt'           => $widget_btn_txt,
+			'generic_credit_req_error' => 'Credit request could not be initiated',
+			'environment'	           => $this->config->get('payment_financePlugin_environment')
 		);
 
 		return $this->load->view('extension/module/financePlugin_calculator', $data);

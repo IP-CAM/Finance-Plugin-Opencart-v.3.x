@@ -74,7 +74,7 @@ class ControllerExtensionPaymentFinancePlugin extends Controller {
 		$data = array(
 			'button_confirm'			=> $this->language->get('financePlugin_checkout'),
 			'api_key'					=> $js_key,
-			'amount'					=> $total,
+			'amount'					=> $total*100,
 			'basket_plans'              => $plans_list,
 			'generic_credit_req_error'	=> 'Credit request could not be initiated',
 			'environment'				=> $this->config->get('payment_financePlugin_environment')
