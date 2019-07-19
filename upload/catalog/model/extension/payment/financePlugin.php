@@ -160,7 +160,7 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 	}
 
 	public function getLookupByOrderId($order_id) {
-		return $this->db->query("SELECT * FROM `" . DB_PREFIX . "c8UMbuNcJ4_lookup` WHERE `order_id` = " . $order_id);
+		return $this->db->query("SELECT * FROM `" . DB_PREFIX . "c8UMbuNcJ4_lookup` WHERE `order_id` = " . (int)$order_id);
 	}
 	public function getGlobalSelectedPlans() {
 		$all_plans     = $this->getAllPlans();
