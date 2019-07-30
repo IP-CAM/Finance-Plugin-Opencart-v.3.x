@@ -15,3 +15,6 @@ customisation based on the end user's API key
 - Fixed issue with figures not being converted correctly to the
 correct currency
 - Added Shared Secret authentication
+
+## [2.0.0] - 2019-02-05
+- Adds Widget upgrade to version 3

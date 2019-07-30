@@ -3,11 +3,12 @@
     data-calculator-widget
     data-plans="{{ plan_list }}"
     data-amount="{{ product_price }}"
-    data-mode="calculator"
+    {{ widget_mode }}
     {{ widget_footnote }}
     {{ widget_btn_txt }}
   >
   </div>
+
   <script>
     __widgetConfig = {
       apiKey: '{{api_key}}'

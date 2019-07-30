@@ -112,6 +112,12 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 			$data['payment_financePlugin_title'] = $this->config->get('payment_financePlugin_title');
 		}
 
+		if (isset($this->request->post['payment_financePlugin_widget_mode'])) {
+			$data['payment_financePlugin_widget_mode'] = $this->request->post['payment_financePlugin_widget_mode'];
+		} else {
+			$data['payment_financePlugin_widget_mode'] = $this->config->get('payment_financePlugin_widget_mode');
+		}
+
 		if (isset($this->request->post['payment_financePlugin_btn_txt'])) {
 			$data['payment_financePlugin_btn_txt'] = $this->request->post['payment_financePlugin_btn_txt'];
 		} else {
