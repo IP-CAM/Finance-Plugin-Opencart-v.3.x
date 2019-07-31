@@ -58,14 +58,14 @@ class ControllerExtensionModuleFinancePluginCalculator extends Controller {
 		$plans_list = implode(',', $plans_ids);
 
 		$data = array(
-			'api_key'				   => $js_key,
-			'product_price'		 	   => $localised_price,
-			'plan_list'				   => $plans_list,
+			'api_key'                  => $js_key,
+			'product_price'            => $localised_price,
+			'plan_list'                => $plans_list,
 			'widget_footnote'          => $widget_footnote,
 			'widget_btn_txt'           => $widget_btn_txt,
 			'widget_mode'              => $widget_mode,
 			'generic_credit_req_error' => 'Credit request could not be initiated',
-			'environment'	           => $this->config->get('payment_financePlugin_environment')
+			'environment'              => $this->config->get('payment_financePlugin_environment')
 		);
 
 		return $this->load->view('extension/module/financePlugin_calculator', $data);
