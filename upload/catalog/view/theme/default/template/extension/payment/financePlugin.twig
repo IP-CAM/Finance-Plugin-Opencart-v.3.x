@@ -1,26 +1,25 @@
-<script>
-    var {{environment}}Key = "{{ api_key }}";
-</script>
+
 <style>
     #{{environment}}-widget{
         padding-bottom:5px;
     }
 </style>
-
-<script src="https://cdn.divido.com/calculator/v2.1/production/js/template.{{environment}}.js"></script>
 <form id="financePluginForm" method="post" >
     <div
-        data-{{environment}}-widget
-        data-{{environment}}-prefix="{{prefix}}"
-        data-{{environment}}-suffix="{{suffix}}"
-        data-{{environment}}-title-logo
-        data-{{environment}}-amount="{{amount}}"
-        data-{{environment}}-apply="true"
-        data-{{environment}}-apply-label="Apply Now"
-        data-{{environment}}-plans="{{basket_plans}}"
+        data-calculator-widget
+        data-mode="calculator"
+        data-amount="{{amount}}"
+        data-plans="{{basket_plans}}"
         >
     </div>
 </form>
+<script>
+    __widgetConfig = {
+        apiKey: '{{api_key}}'
+    }
+</script>
+<script src="https://cdn.divido.com/widget/dist/{{environment}}.calculator.js"></script>
+
 <p>{{ text_redirection }}</p>
 
 <div class="buttons">
@@ -32,7 +31,6 @@
 <script>
 (function($) {
     $(function () {
-
         $('#button-confirm').click(function() {
             var data = $("#financePluginForm").serializeArray();
             $.ajax({

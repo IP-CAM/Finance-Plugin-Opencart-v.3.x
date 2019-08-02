@@ -74,7 +74,7 @@ class ControllerExtensionPaymentFinancePlugin extends Controller {
 		$data = array(
 			'button_confirm'			=> $this->language->get('financePlugin_checkout'),
 			'api_key'					=> $js_key,
-			'amount'					=> $total,
+			'amount'					=> $total*100,
 			'basket_plans'              => $plans_list,
 			'generic_credit_req_error'	=> 'Credit request could not be initiated',
 			'environment'				=> $this->config->get('payment_financePlugin_environment')
@@ -154,8 +154,11 @@ class ControllerExtensionPaymentFinancePlugin extends Controller {
 		$salt = uniqid('', true);
 		$hash = $this->model_extension_payment_financePlugin->hashOrderId($order_id, $salt);
 
+		list($total, $totals) = $this->model_extension_payment_financePlugin->getOrderTotals();
+
 		$request = array();
-		$request['deposit_percentage'] = ($_POST['divido_deposit']/100);
+		$request['deposit_percentage'] = ($_POST['divido_deposit']/filter_var($total,FILTER_SANITIZE_NUMBER_INT));
+		$request['deposit_amount'] = ($_POST['divido_deposit']);
 		$request['plan'] = $_POST['divido_plan'];
 		$request['country'] = $this->session->data['payment_address'];
 		$request['language'] = $this->language->get('code');

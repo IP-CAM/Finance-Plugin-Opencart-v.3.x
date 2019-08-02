@@ -21,13 +21,26 @@ class ControllerExtensionModuleFinancePluginCalculator extends Controller {
 			$price = $this->tax->calculate($base_price, $product_info['tax_class_id'], $this->config->get('config_tax'));
 		}
 		$price_text = $this->currency->format($price, $this->session->data['currency']);
-		$localised_price = filter_var($price_text, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+		$localised_price = filter_var($price_text, FILTER_SANITIZE_NUMBER_INT);
 
 		if ($product_selection == 'threshold' && $product_threshold > $localised_price) {
 			return false;
 		}
 
 		$api_key = $this->config->get('payment_financePlugin_api_key');
+		
+		$widget_footnote = (empty($this->config->get('payment_financePlugin_footnote')))
+			? ''
+			: 'data-footnote="'.$this->config->get('payment_financePlugin_footnote').'"';
+		
+		$widget_btn_txt = (empty($this->config->get('payment_financePlugin_btn_txt')))
+			? ''
+			: 'data-button-text="'.$this->config->get('payment_financePlugin_btn_txt').'"';
+
+		$widget_mode = (empty($this->config->get('payment_financePlugin_widget_mode')))
+			? ''
+			: 'data-mode="'.$this->config->get('payment_financePlugin_widget_mode').'"';
+
 		$key_parts = explode('.', $api_key);
 		$js_key = strtolower(array_shift($key_parts));
 
@@ -45,11 +58,14 @@ class ControllerExtensionModuleFinancePluginCalculator extends Controller {
 		$plans_list = implode(',', $plans_ids);
 
 		$data = array(
-			'api_key'					=> $js_key,
-			'product_price'				=> $localised_price,
-			'plan_list'					=> $plans_list,
-			'generic_credit_req_error'	=> 'Credit request could not be initiated',
-			'environment'	=> $this->config->get('payment_financePlugin_environment')
+			'api_key'                  => $js_key,
+			'product_price'            => $localised_price,
+			'plan_list'                => $plans_list,
+			'widget_footnote'          => $widget_footnote,
+			'widget_btn_txt'           => $widget_btn_txt,
+			'widget_mode'              => $widget_mode,
+			'generic_credit_req_error' => 'Credit request could not be initiated',
+			'environment'              => $this->config->get('payment_financePlugin_environment')
 		);
 
 		return $this->load->view('extension/module/financePlugin_calculator', $data);
