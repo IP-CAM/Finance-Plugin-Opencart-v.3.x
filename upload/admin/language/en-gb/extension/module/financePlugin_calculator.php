@@ -1,14 +1,9 @@
 <?php
-// Heading
-$_['heading_title']    = 'Finance Plugin Product Page Calculator';
 
-// Text
-$_['text_extension']   = 'Extensions';
-$_['text_success']     = 'Success: You have modified the Finance Plugin Product Page Calculator!';
-$_['text_edit']        = 'Edit Finance Plugin Product Page Calculator';
+$_["product_calculator_title"] = "Product Finance Calculator";
+$_["calculator_edit_success_msg"] = "Success: You have edited the Product Finance Calculator!";
+$_["calculator_permission_error"] = "Warning: You do not have permission to modify the Product Finance Calculator";
+$_["calculator_edit_label"] = "Edit Product Finance Calculator";
+$_["calculator_active_label"] = "Active";
 
-// Entry
-$_['entry_status']     = 'Status';
-
-// Error
-$_['error_permission'] = 'Warning: You do not have permission to modify module Finance Plugin Product Page Calculator!';
+?>
