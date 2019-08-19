@@ -211,7 +211,7 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 		}
 
 		$this->load->model('extension/payment/financePlugin');
-		$this->load->language('extension/payment/financePlugin');
+		$this->load->language('extension/payment/financePlugin_order');
 
 		$order_id = $this->request->get['order_id'];
 		$lookup = $this->model_extension_payment_financePlugin->getLookupByOrderId($order_id);
@@ -223,25 +223,25 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 			if(isset($this->request->post['activate'])) {
 				$response = $this->model_extension_payment_financePlugin->activateOrder($order_id);
 				if(isset($response->error)) {
-					$data['notification'] = $response->message;
+					$data['notification'] = $this->language->get('activation_error_msg');
 				} else {
-					$data['notification'] = 'The order has been activated';
+					$data['notification'] = $this->language->get('activation_success_msg');
 					$data['order_status'] = 'AWAITING-ACTIVATION';
 				}
 			}elseif(isset($this->request->post['refund'])) {
 				$response = $this->model_extension_payment_financePlugin->refundOrder($order_id);
 				if(isset($response->error)) {
-					$data['notification'] = $response->message;
+					$data['notification'] = $this->language->get('refund_error_msg');
 				} else {
-					$data['notification'] = 'The order has been refunded';
+					$data['notification'] = $this->language->get('refund_success_msg');
 					$data['order_status'] = 'REFUNDED';
 				}
 			}elseif(isset($this->request->post['cancel'])) {
 				$response = $this->model_extension_payment_financePlugin->cancelOrder($order_id);
 				if(isset($response->error)) {
-					$data['notification'] = $response->message;
+					$data['notification'] = $this->language->get('cancellation_error_msg');
 				} else {
-					$data['notification'] = 'The order has been cancelled';
+					$data['notification'] = $this->language->get('cancellation_success_msg');
 					$data['order_status'] = 'CANCELLED';
 				}
 			}

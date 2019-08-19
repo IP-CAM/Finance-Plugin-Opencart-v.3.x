@@ -92,7 +92,7 @@ class ModelExtensionPaymentFinancePlugin extends Model {
 			return array();
 		}
 
-		$title = $this->language->get('text_checkout_title');
+		$title = $this->language->get('plugin_title');
 		if ($title_override = $this->config->get('payment_financePlugin_title')) {
 			$title = $title_override;
 		}

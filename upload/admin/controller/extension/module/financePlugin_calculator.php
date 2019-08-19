@@ -7,7 +7,7 @@ class ControllerExtensionModuleFinancePluginCalculator extends Controller {
 		$this->load->language('extension/module/financePlugin');
 		$this->load->model('setting/setting');
 
-		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->setTitle($this->language->get('plugin_title'));
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_setting_setting->editSetting('module_financePlugin_calculator', $this->request->post);

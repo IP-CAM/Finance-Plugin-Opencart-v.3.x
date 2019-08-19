@@ -1,8 +1,9 @@
 <?php
 
+$_["plugin_title"] = "Pay by Finance";
 $_["plugin_edit_label"] = "Edit the plugin";
 $_["plugin_edit_success_msg"] = "Success: You have edited the module";
-$_["plugin_save_label"] = "Save";
+$_["save_label"] = "Save";
 $_["plugin_cancel_label"] = "Cancel";
 $_["extensions_label"] = "Extensions";
 $_["product_calculator_title"] = "Product Finance Calculator";
@@ -14,5 +15,7 @@ $_["calculator_active_label"] = "Active";
 $_["enabled_option"] = "Enabled";
 $_["disabled_option"] = "Disabled";
 $_["home_label"] = "Home";
+$_["confirm_label"] = "Confirm";
+$_["loading_label"] = "Loading";
 
 ?>
