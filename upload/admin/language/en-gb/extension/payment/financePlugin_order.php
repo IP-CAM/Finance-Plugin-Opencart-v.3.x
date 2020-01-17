@@ -22,5 +22,6 @@ $_["disabled_option"] = "Disabled";
 $_["home_label"] = "Home";
 $_["confirm_label"] = "Confirm";
 $_["loading_label"] = "Loading";
+$_["plugin_title"] = "Pay by Finance";
 
 ?>

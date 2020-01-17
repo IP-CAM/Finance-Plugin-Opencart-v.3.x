@@ -52,5 +52,6 @@ $_["product_price_threshold_label"] = "Produktprisgrænse";
 $_["product_price_threshold_description"] = "Det mindstebeløb, et produkt skal koste for at være levedygtigt for finansiering";
 $_["confirm_label"] = "Bekræfte";
 $_["loading_label"] = "Indlæser";
+$_["plugin_title"] = "Betal med finansiering";
 
 ?>

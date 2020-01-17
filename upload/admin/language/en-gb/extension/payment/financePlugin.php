@@ -52,5 +52,6 @@ $_["product_price_threshold_label"] = "Product Price Threshold";
 $_["product_price_threshold_description"] = "The minimum amount a product must cost to be viable for finance";
 $_["confirm_label"] = "Confirm";
 $_["loading_label"] = "Loading";
+$_["plugin_title"] = "Pay by Finance";
 
 ?>

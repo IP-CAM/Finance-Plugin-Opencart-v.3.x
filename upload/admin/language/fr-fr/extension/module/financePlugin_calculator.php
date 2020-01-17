@@ -13,6 +13,7 @@ $_["disabled_option"] = "désactivé";
 $_["home_label"] = "Accueil";
 $_["confirm_label"] = "Confirmer";
 $_["loading_label"] = "Chargement";
+$_["plugin_title"] = "Payer par les finances";
 $_["calculator_active_description"] = "Afficher une calculatrice pratique sur la page du produit, permettant aux clients de voir combien leurs achats coûteraient avec les finances";
 
 ?>

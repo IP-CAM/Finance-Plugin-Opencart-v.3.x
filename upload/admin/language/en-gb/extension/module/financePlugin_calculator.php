@@ -13,6 +13,7 @@ $_["disabled_option"] = "Disabled";
 $_["home_label"] = "Home";
 $_["confirm_label"] = "Confirm";
 $_["loading_label"] = "Loading";
+$_["plugin_title"] = "Pay by Finance";
 $_["calculator_active_description"] = "Display a handy calculator on the product page, letting customers see how much their purchases would cost with finance";
 
 ?>

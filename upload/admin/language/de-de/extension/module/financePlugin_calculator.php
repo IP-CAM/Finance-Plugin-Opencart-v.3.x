@@ -13,6 +13,7 @@ $_["disabled_option"] = "Deaktiviert";
 $_["home_label"] = "Zuhause";
 $_["confirm_label"] = "Bestätigen";
 $_["loading_label"] = "Wird geladen";
+$_["plugin_title"] = "Zahlen Sie mit Finanzen";
 $_["calculator_active_description"] = "Zeigen Sie auf der Produktseite einen praktischen Taschenrechner an, mit dem Kunden sehen können, wie viel ihre Einkäufe mit der Finanzierung kosten würden";
 
 ?>

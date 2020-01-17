@@ -22,5 +22,6 @@ $_["disabled_option"] = "Deaktiviert";
 $_["home_label"] = "Zuhause";
 $_["confirm_label"] = "Bestätigen";
 $_["loading_label"] = "Wird geladen";
+$_["plugin_title"] = "Zahlen Sie mit Finanzen";
 
 ?>

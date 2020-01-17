@@ -52,5 +52,6 @@ $_["product_price_threshold_label"] = "Seuil de prix du produit";
 $_["product_price_threshold_description"] = "Le montant minimum qu'un produit doit coûter pour être viable pour le financement";
 $_["confirm_label"] = "Confirmer";
 $_["loading_label"] = "Chargement";
+$_["plugin_title"] = "Payer par les finances";
 
 ?>

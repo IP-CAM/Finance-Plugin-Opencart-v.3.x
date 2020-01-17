@@ -52,5 +52,6 @@ $_["product_price_threshold_label"] = "Produktpreisschwelle";
 $_["product_price_threshold_description"] = "Der Mindestbetrag, den ein Produkt kosten muss, um finanziert werden zu können";
 $_["confirm_label"] = "Bestätigen";
 $_["loading_label"] = "Wird geladen";
+$_["plugin_title"] = "Zahlen Sie mit Finanzen";
 
 ?>

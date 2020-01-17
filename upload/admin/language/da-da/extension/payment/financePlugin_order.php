@@ -22,5 +22,6 @@ $_["disabled_option"] = "handicappet";
 $_["home_label"] = "Hjem";
 $_["confirm_label"] = "Bekræfte";
 $_["loading_label"] = "Indlæser";
+$_["plugin_title"] = "Betal med finansiering";
 
 ?>

@@ -13,6 +13,7 @@ $_["disabled_option"] = "handicappet";
 $_["home_label"] = "Hjem";
 $_["confirm_label"] = "Bekræfte";
 $_["loading_label"] = "Indlæser";
+$_["plugin_title"] = "Betal med finansiering";
 $_["calculator_active_description"] = "Vis en praktisk lommeregner på produktsiden, så kunderne kan se, hvor meget deres køb ville koste med finansiering";
 
 ?>
