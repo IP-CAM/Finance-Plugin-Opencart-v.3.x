@@ -3,8 +3,8 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button type="submit" form="form-module" data-toggle="tooltip" title="{{ plugin_save_label }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{ cancel_url }}" data-toggle="tooltip" title="{{ plugin_cancel_label }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+        <button type="submit" form="form-module" data-toggle="tooltip" title="{{ save_label }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel_url }}" data-toggle="tooltip" title="{{ cancel_label }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -26,7 +26,9 @@
       <div class="panel-body">
         <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-status">{{ calculator_active_label }}</label>
+              <label class="col-sm-2 control-label" for="input-status">
+                <span data-toggle="tooltip" title="{{ calculator_active_description }}">{{ calculator_active_label }}</span>
+            </label>
             <div class="col-sm-10">
               <select name="module_financePlugin_calculator_status" id="input-status" class="form-control">
                 <option value="0">{{ disabled_option }}</option>

@@ -40,8 +40,8 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 			'threshold' => $this->language->get('finance_threshold_products_option'),
 		);
 
-		$data['button_save'] = $this->language->get('plugin_save_label');
-		$data['button_cancel'] = $this->language->get('plugin_cancel_label');
+		$data['button_save'] = $this->language->get('save_label');
+		$data['button_cancel'] = $this->language->get('cancel_label');
 
 		$this->load->model('localisation/order_status');
 
@@ -280,7 +280,7 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 	protected function validate()
 	{
 		if (!$this->user->hasPermission('modify', 'extension/payment/financePlugin')) {
-			$this->error['warning'] = $this->language->get('error_permission');
+			$this->error['warning'] = $this->language->get('calculator_permission_error_msg');
 		}
 
 		return !$this->error;
