@@ -18,3 +18,13 @@ correct currency
 
 ## [2.0.0] - 2019-02-05
 - Adds Widget upgrade to version 3
+
+## [2.1.0] - 2020-03-27
+- Adds language support for:
+    - English
+    - French
+    - Spanish
+    - Danish
+    - German
+
+
