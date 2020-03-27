@@ -1,0 +1,57 @@
+<?php
+
+$_["api_key_label"] = "API Key";
+$_["shared_secret_label"] = "Shared Secret";
+$_["checkout_title_label"] = "Checkout Title";
+$_["checkout_description_label"] = "Checkout Description";
+$_["cart_threshold_label"] = "Cart Threshold";
+$_["show_widget_label"] = "Show Widget";
+$_["widget_minimum_label"] = "Widget Minimum";
+$_["widget_minimum_description"] = "Only display the widget if the product price is over the specified amount";
+$_["show_widget_description"] = "Show a handy widget with the finance options on your products page";
+$_["api_key_description"] = "The API-key should be supplied by your finance provider";
+$_["shared_secret_description"] = "The optional shared secret is an agreed code used to verify information between you and your finance provider";
+$_["widget_prefix_label"] = "Widget Prefix";
+$_["widget_suffix_label"] = "Widget Suffix";
+$_["debug_label"] = "Debug";
+$_["activate_on_status_label"] = "Activate Order On Status";
+$_["activate_on_status_description"] = "Notify your finance provider that the transaction has been completed";
+$_["limit_plans_label"] = "Limit Plans";
+$_["limit_plans_description"] = "Choose the plans you want to make available to your customers";
+$_["cart_threshold_description"] = "The minimum amount necessary for the cart to total in order for finance to be an option at checkout";
+$_["widget_prefix_description"] = "Text preceding the price per month of finance on the product page";
+$_["plugin_active_label"] = "Active";
+$_["checkout_title_description"] = "The name of the payment option at checkout";
+$_["product_selection_label"] = "Product Selection";
+$_["refine_plans_label"] = "Refine Plans list";
+$_["plugin_edit_success_msg"] = "Success: You have edited the module";
+$_["show_all_plans_option"] = "Show all plans";
+$_["select_specific_plans_option"] = "Select specific plans";
+$_["finance_all_products_option"] = "All products";
+$_["finance_specific_products_option"] = "Finance specific products";
+$_["finance_threshold_products_option"] = "All products above a defined price";
+$_["save_label"] = "Save";
+$_["cancel_label"] = "Cancel";
+$_["sort_order_label"] = "Sort Order";
+$_["specify_categories_label"] = "Specify Categories";
+$_["specify_categories_description"] = "Only allow finance for the products in the specified categories";
+$_["extensions_label"] = "Extensions";
+$_["product_selection_description"] = "Customise which products can be financed";
+$_["heading_title"] = "Pay by Finance";
+$_["plugin_active_description"] = "Enable or disable the finance option at checkout";
+$_["widget_footnote_label"] = "Footnote";
+$_["widget_button_text_label"] = "Button text";
+$_["widget_button_text_description"] = "Text that appears on the widget button";
+$_["widget_footnote_description"] = "Small print that appears at the end of the widget";
+$_["enabled_option"] = "Enabled";
+$_["disabled_option"] = "Disabled";
+$_["widget_mode_label"] = "Mode";
+$_["widget_mode_description"] = "Whether the widget appears as immediately (calculator), or when a button is clicked (lightbox)";
+$_["home_label"] = "Home";
+$_["product_price_threshold_label"] = "Product Price Threshold";
+$_["product_price_threshold_description"] = "The minimum amount a product must cost to be viable for finance";
+$_["confirm_label"] = "Confirm";
+$_["loading_label"] = "Loading";
+$_["plugin_title"] = "Pay by Finance";
+
+?>
