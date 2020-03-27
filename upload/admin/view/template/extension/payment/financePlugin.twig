@@ -20,37 +20,37 @@
 	{% endif %}
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ plugin_edit_label }}</h3>
             </div>
             <div class="panel-body">
                 <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="api_key"><span data-toggle="tooltip" title="{{ help_api_key }}">{{ entry_api_key }}</span></label>
+                        <label class="col-sm-2 control-label" for="api_key"><span data-toggle="tooltip" title="{{ api_key_description }}">{{ api_key_label }}</span></label>
                         <div class="col-sm-10">
                             <input id="api_key" class="form-control" type="text" name="payment_financePlugin_api_key" value="{{ payment_financePlugin_api_key }}" size="60">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="shared_secret"><span data-toggle="tooltip" title="{{ help_shared_secret }}">{{ entry_shared_secret }}</span></label>
+                        <label class="col-sm-2 control-label" for="shared_secret"><span data-toggle="tooltip" title="{{ shared_secret_description }}">{{ shared_secret_label }}</span></label>
                         <div class="col-sm-10">
                             <input id="shared_secret" class="form-control" type="text" name="payment_financePlugin_shared_secret" value="{{ payment_financePlugin_shared_secret }}" size="60">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="financePlugin_status"><span data-toggle="tooltip" title="{{ help_status }}">{{ entry_status }}</span></label>
+                        <label class="col-sm-2 control-label" for="financePlugin_status"><span data-toggle="tooltip" title="{{ plugin_active_description }}">{{ plugin_active_label }}</span></label>
                         <div class="col-sm-10">
                             <select name="payment_financePlugin_status" id="financePlugin_status" class="form-control">
-                                <option value="1" >{{ text_enabled }}</option>
-                                <option value="0" {% if payment_financePlugin_status == '0' %} selected="selected" {% endif %}>{{ text_disabled }}</option>
+                                <option value="1" >{{ enabled_option }}</option>
+                                <option value="0" {% if payment_financePlugin_status == '0' %} selected="selected" {% endif %}>{{ disabled_option }}</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="financePlugin_order_status_id"><span data-toggle="tooltip" title="{{ help_order_status }}">{{ entry_order_status }}</span></label>
+                        <label class="col-sm-2 control-label" for="financePlugin_order_status_id"><span data-toggle="tooltip" title="{{ activate_on_status_description }}">{{ activate_on_status_label }}</span></label>
                         <div class="col-sm-10">
                             <select name="payment_financePlugin_order_status_id" id="financePlugin_order_status_id" class="form-control">
                                 {% for order_status in order_statuses %}
@@ -61,38 +61,38 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="financePlugin_title"><span data-toggle="tooltip" title="{{ help_title }}">{{ entry_title }}</span></label>
+                        <label class="col-sm-2 control-label" for="financePlugin_title"><span data-toggle="tooltip" title="{{ checkout_title_description }}">{{ checkout_title_label }}</span></label>
                         <div class="col-sm-10">
                             <input type="text" id="financePlugin_title" name="payment_financePlugin_title" value="{{ payment_financePlugin_title }}" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="financePlugin_widgetMode"><span data-toggle="tooltip" title="{{ help_widget_mode }}">{{ widget_mode }}</span></label>
+                        <label class="col-sm-2 control-label" for="financePlugin_widgetMode"><span data-toggle="tooltip" title="{{ widget_mode_description }}">{{ widget_mode_label }}</span></label>
                         <div class="col-sm-10">
                             <select name="payment_financePlugin_widget_mode" id="financePlugin_widgetMode" class="form-control">
-                                <option value="calculator" {% if "calculator" == payment_financePlugin_widget_mode %}selected="selected"{% endif %}>{{ widget_mode_calculator }}</option>
-                                <option value="lightbox" {% if "lightbox" == payment_financePlugin_widget_mode %}selected="selected"{% endif %}>{{ widget_mode_lightbox }}</option>
+                                <option value="calculator" {% if "calculator" == payment_financePlugin_widget_mode %}selected="selected"{% endif %}>{{ calculator_option }}</option>
+                                <option value="lightbox" {% if "lightbox" == payment_financePlugin_widget_mode %}selected="selected"{% endif %}>{{ lightbox_option }}</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="financePlugin_btn_txt"><span data-toggle="tooltip" title="{{ help_btn_txt }}">{{ entry_btn_txt }}</span></label>
+                        <label class="col-sm-2 control-label" for="financePlugin_btn_txt"><span data-toggle="tooltip" title="{{ widget_button_text_description }}">{{ widget_button_text_label }}</span></label>
                         <div class="col-sm-10">
                             <input type="text" id="financePlugin_btn_txt" name="payment_financePlugin_btn_txt" value="{{ payment_financePlugin_btn_txt }}" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="financePlugin_footnote"><span data-toggle="tooltip" title="{{ help_footnote }}">{{ entry_footnote }}</span></label>
+                        <label class="col-sm-2 control-label" for="financePlugin_footnote"><span data-toggle="tooltip" title="{{ widget_footnote_description }}">{{ widget_footnote_label }}</span></label>
                         <div class="col-sm-10">
                             <input type="text" id="financePlugin_footnote" name="payment_financePlugin_footnote" value="{{ payment_financePlugin_footnote }}" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="financePlugin_planselection"><span data-toggle="tooltip" title="{{ help_planselection }}">{{ entry_planselection }}</span></label>
+                        <label class="col-sm-2 control-label" for="financePlugin_planselection"><span data-toggle="tooltip" title="{{ limit_plans_description }}">{{ limit_plans_label }}</span></label>
                         <div class="col-sm-10">
                             <select name="payment_financePlugin_planselection" id="financePlugin_planselection" class="form-control">
                                 {% for option, text in entry_plans_options %}
@@ -103,7 +103,7 @@
                     </div>
 
                     <div id="plan-list" class="form-group">
-                        <label class="col-sm-2 control-label">{{ entry_planlist }}</label>
+                        <label class="col-sm-2 control-label">{{ refine_plans_label }}</label>
                         <div class="col-sm-10">
                             {% for plan in financePlugin_plans %}
                             <label>
@@ -115,7 +115,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="financePlugin_productselection"><span data-toggle="tooltip" title="{{ help_productselection }}">{{ entry_productselection }}</span></label>
+                        <label class="col-sm-2 control-label" for="financePlugin_productselection"><span data-toggle="tooltip" title="{{ product_selection_description }}">{{ product_selection_label }}</span></label>
                         <div class="col-sm-10">
                             <select name="payment_financePlugin_productselection" id="financePlugin_productselection" class="form-control">
                                 {% for option, text in entry_products_options %}
@@ -126,28 +126,28 @@
                     </div>
 
                     <div id="threshold" class="form-group">
-                        <label class="col-sm-2 control-label" for="financePlugin_price_threshold">{{ entry_price_threshold }}</label>
+                        <label class="col-sm-2 control-label" for="financePlugin_price_threshold"><span data-toggle='tooltip' title="{{ product_price_threshold_description }}">{{ product_price_threshold_label}}</span></label>
                         <div class="col-sm-10">
                             <input type="text" name="payment_financePlugin_price_threshold" value="{{ payment_financePlugin_price_threshold }}" class="form-control" id="financePlugin_price_threshold">
                         </div>
                     </div>
 
                     <div id="cart-threshold" class="form-group">
-                        <label class="col-sm-2 control-label" for="financePlugin_cart_threshold"><span data-toggle="tooltip" title="{{ help_cart_threshold }}">{{ entry_cart_threshold }}</span></label>
+                        <label class="col-sm-2 control-label" for="financePlugin_cart_threshold"><span data-toggle="tooltip" title="{{ cart_threshold_description }}">{{ cart_threshold_label }}</span></label>
                         <div class="col-sm-10">
                             <input type="text" name="payment_financePlugin_cart_threshold" value="{{ payment_financePlugin_cart_threshold }}" class="form-control" id="financePlugin_cart_threshold">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="sort_order">{{ entry_sort_order }}</label>
+                        <label class="col-sm-2 control-label" for="sort_order">{{ sort_order_label }}</label>
                         <div class="col-sm-10">
                             <input type="text" id="payment_financePlugin_sort_order" class="form-control" name="payment_financePlugin_sort_order" value="{{ payment_financePlugin_sort_order }}" size="1">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="category"><span data-toggle="tooltip" title="{{ help_category }}">{{ entry_category }}</span></label>
+                        <label class="col-sm-2 control-label" for="category"><span data-toggle="tooltip" title="{{ specify_categories_description }}">{{ specify_categories_label }}</span></label>
                         <div class="col-sm-10">
                             <input type="text" name="category" value="" placeholder="{{ entry_category }}" id="category" class="form-control" />
                             <div id="financePlugin-category" class="well well-sm" style="height: 150px; overflow: auto;">

@@ -6,15 +6,15 @@
     </thead>
     <tbody>
         <tr>
-            <td>{{ text_proposal_id }}</td>
+            <td>{{ proposal_id_label }}</td>
             <td>{{ proposal_id }}</td>
         </tr>
         <tr>
-            <td>{{ text_application_id }}</td>
+            <td>{{ application_id_label }}</td>
             <td>{{ application_id }}</td>
         </tr>
         <tr>
-            <td>{{ text_deposit_amount }}</td>
+            <td>{{ deposit_amount_label }}</td>
             <td>{{ deposit_amount }}</td>
         </tr>
         {% if notification %}
@@ -25,7 +25,7 @@
         {% endif %}
         {% if(order_status == 'READY') %}
         <tr>
-            <td>Activate</td>
+            <td>{{ activate_order_label }}</td>
             <td>
               <form method='post'>
                 <input type="submit" name="activate" value="activate"></input>
@@ -33,7 +33,7 @@
             </td>
         </tr>
         <tr>
-            <td>Cancel</td>
+            <td>{{ cancel_order_label }}</td>
             <td>
               <form method='post'>
                 <input type="submit" name="cancel" value="cancel"></input>
@@ -43,7 +43,7 @@
         {% endif %}
         {% if(order_status == 'AWAITING-ACTIVATION') %}
         <tr>
-            <td>Refund</td>
+            <td>{{ refund_order_label }}</td>
             <td>
               <form method='post'>
                 <input type="submit" name="refund" value="refund"></input>

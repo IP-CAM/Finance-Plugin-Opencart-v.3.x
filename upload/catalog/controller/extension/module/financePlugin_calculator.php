@@ -64,7 +64,6 @@ class ControllerExtensionModuleFinancePluginCalculator extends Controller {
 			'widget_footnote'          => $widget_footnote,
 			'widget_btn_txt'           => $widget_btn_txt,
 			'widget_mode'              => $widget_mode,
-			'generic_credit_req_error' => 'Credit request could not be initiated',
 			'environment'              => $this->config->get('payment_financePlugin_environment')
 		);
 

@@ -24,24 +24,24 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 			
 			$this->model_setting_setting->editSetting('payment_financePlugin', $new_settings);
 
-			$this->session->data['success'] = $this->language->get('text_success');
+			$this->session->data['success'] = $this->language->get('plugin_edit_success_msg');
 
 			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
 		}
 
 		$data['entry_plans_options'] = array(
-			'all' => $this->language->get('entry_plans_options_all'),
-			'selected' => $this->language->get('entry_plans_options_selected'),
+			'all' => $this->language->get('show_all_plans_option'),
+			'selected' => $this->language->get('select_specific_plans_option'),
 		);
 
 		$data['entry_products_options'] = array(
-			'all' => $this->language->get('entry_products_options_all'),
-			'selected' => $this->language->get('entry_products_options_selected'),
-			'threshold' => $this->language->get('entry_products_options_threshold'),
+			'all' => $this->language->get('finance_all_products_option'),
+			'selected' => $this->language->get('finance_specific_products_option'),
+			'threshold' => $this->language->get('finance_threshold_products_option'),
 		);
 
-		$data['button_save'] = $this->language->get('button_save');
-		$data['button_cancel'] = $this->language->get('button_cancel');
+		$data['button_save'] = $this->language->get('save_label');
+		$data['button_cancel'] = $this->language->get('cancel_label');
 
 		$this->load->model('localisation/order_status');
 
@@ -56,12 +56,12 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
+			'text' => $this->language->get('home_label'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
 		);
 
 		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_extension'),
+			'text' => $this->language->get('extensions_label'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
 		);
 
@@ -211,7 +211,7 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 		}
 
 		$this->load->model('extension/payment/financePlugin');
-		$this->load->language('extension/payment/financePlugin');
+		$this->load->language('extension/payment/financePlugin_order');
 
 		$order_id = $this->request->get['order_id'];
 		$lookup = $this->model_extension_payment_financePlugin->getLookupByOrderId($order_id);
@@ -223,25 +223,25 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 			if(isset($this->request->post['activate'])) {
 				$response = $this->model_extension_payment_financePlugin->activateOrder($order_id);
 				if(isset($response->error)) {
-					$data['notification'] = $response->message;
+					$data['notification'] = $this->language->get('activation_error_msg');
 				} else {
-					$data['notification'] = 'The order has been activated';
+					$data['notification'] = $this->language->get('activation_success_msg');
 					$data['order_status'] = 'AWAITING-ACTIVATION';
 				}
 			}elseif(isset($this->request->post['refund'])) {
 				$response = $this->model_extension_payment_financePlugin->refundOrder($order_id);
 				if(isset($response->error)) {
-					$data['notification'] = $response->message;
+					$data['notification'] = $this->language->get('refund_error_msg');
 				} else {
-					$data['notification'] = 'The order has been refunded';
+					$data['notification'] = $this->language->get('refund_success_msg');
 					$data['order_status'] = 'REFUNDED';
 				}
 			}elseif(isset($this->request->post['cancel'])) {
 				$response = $this->model_extension_payment_financePlugin->cancelOrder($order_id);
 				if(isset($response->error)) {
-					$data['notification'] = $response->message;
+					$data['notification'] = $this->language->get('cancellation_error_msg');
 				} else {
-					$data['notification'] = 'The order has been cancelled';
+					$data['notification'] = $this->language->get('cancellation_success_msg');
 					$data['order_status'] = 'CANCELLED';
 				}
 			}
@@ -280,7 +280,7 @@ class ControllerExtensionPaymentFinancePlugin extends Controller
 	protected function validate()
 	{
 		if (!$this->user->hasPermission('modify', 'extension/payment/financePlugin')) {
-			$this->error['warning'] = $this->language->get('error_permission');
+			$this->error['warning'] = $this->language->get('calculator_permission_error_msg');
 		}
 
 		return !$this->error;

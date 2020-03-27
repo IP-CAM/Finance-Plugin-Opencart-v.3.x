@@ -72,11 +72,9 @@ class ControllerExtensionPaymentFinancePlugin extends Controller {
 		$plans_list = implode(',', $plans_ids);
 
 		$data = array(
-			'button_confirm'			=> $this->language->get('financePlugin_checkout'),
 			'api_key'					=> $js_key,
 			'amount'					=> $total*100,
 			'basket_plans'              => $plans_list,
-			'generic_credit_req_error'	=> 'Credit request could not be initiated',
 			'environment'				=> $this->config->get('payment_financePlugin_environment')
 		);
 
@@ -186,7 +184,7 @@ class ControllerExtensionPaymentFinancePlugin extends Controller {
 		if (isset($response->error)) {
 			$data = array(
 				'status' => 'error',
-				'message' => $response->message //$this->language->get($response->error),
+				'message' => $response->message
 			);
 		} else {
 			$payload = $response->data;
